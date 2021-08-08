@@ -10,8 +10,8 @@ import subprocess
 # print(file.read("/tmp/example.txt"))
 # file.close()
 
-sender = "lp -d OKI_DATA_CORP_ML420 /tmp/temp.txt"
+sender = "This is a test of the program"
 
 
 lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
-lpr.stdin.write(sender)
+lpr.stdin.write(b"Printing from Python!")
