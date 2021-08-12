@@ -8,6 +8,6 @@ def getfilecontentslist(filename):
     ourfile.close()
     return contentlist
 
-
+# Choose a random joke from a given joke list
 def getrandomjokefromlist(jokelist):
-    return jokelist[randint(0, len(jokelist))]
+    return jokelist[randint(0, len(jokelist) - 1)]
