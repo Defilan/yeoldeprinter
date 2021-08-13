@@ -18,7 +18,7 @@ try:
     while 1:
         try:
             c = sys.stdin.read(1)
-            if c:
+            if c == "k":
                 jokemaker()
         except IOError:
             pass
