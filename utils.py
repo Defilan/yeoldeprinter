@@ -1,5 +1,4 @@
 from random import randint
-import keyboard
 
 
 # Get the jokes out of a .txt file and into a list
@@ -15,6 +14,10 @@ def getrandomjokefromlist(jokelist):
     return jokelist[randint(0, len(jokelist) - 1)]
 
 
-def keyboardwait():
-    keyboard.wait('esc')
-    return "You waited for esc, good job"
+def jokemaker():
+    print("\n")
+    print("Time for a funny one-liner!\n")
+    jokelist = getfilecontentslist("oneliners")
+    print(getrandomjokefromlist(jokelist))
+    print("Thanks for using Ye Olde Printer!")
+    print("\n")
