@@ -1,4 +1,5 @@
 from random import randint
+import subprocess
 
 
 # Get the jokes out of a .txt file and into a list
@@ -15,9 +16,18 @@ def getrandomjokefromlist(jokelist):
 
 
 def jokemaker():
-    print("\n")
-    print("Time for a funny one-liner!\n")
     jokelist = getfilecontentslist("oneliners")
-    print(getrandomjokefromlist(jokelist))
-    print("Thanks for using Ye Olde Printer!")
-    print("\n")
+    joketosend = getrandomjokefromlist(jokelist)
+    stringbuild = "\n", "Time for a funny one-liner!", joketosend, "Thanks for using Ye Olde Printer!"
+    glue = "\n"
+    res = glue.join(stringbuild).encode('utf8')
+    sendtoprinter(res)
+
+
+def sendtoprinter(joke):
+    print("Sending job to print queue...")
+    print(joke)
+    lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, close_fds=True)
+    lpr.stdin.write(joke)
+    lpr.stdin.flush()
+    lpr.stdin.close()
