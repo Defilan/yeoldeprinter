@@ -1,27 +1,27 @@
-from utils import get_file_contents, get_random_line
+from utils import jokemaker
+import fcntl
+import os
+import sys
+import termios
 
-# Currently the main process, prints a joke OR fortune to the terminal :)
-print("\n")
-print("Welcome to Ye Olde Printer!\n")
-print("Would you like to hear a JOKE, or receive a FORTUNE?\n")
-input = str(input())
+fd = sys.stdin.fileno()
 
-file_contents_list = []
+oldterm = termios.tcgetattr(fd)
+newattr = termios.tcgetattr(fd)
+newattr[3] = newattr[3] & ~termios.ICANON & ~termios.ECHO
+termios.tcsetattr(fd, termios.TCSANOW, newattr)
 
-if input == "JOKE":
-    file_contents_list = get_file_contents("jokes")
-elif input == "FORTUNE":
-    file_contents_list = get_file_contents("fortunes")
-elif input == "":
-    input = "\" \""
+oldflags = fcntl.fcntl(fd, fcntl.F_GETFL)
+fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK)
 
-if len(file_contents_list) > 0:
-    print("\nBehold, your " + input + ":\n")
-    print("------------------------------------------------------------------------------\n")
-    print(get_random_line(file_contents_list))
-    print("------------------------------------------------------------------------------\n")
-else:
-    print("Sorry, but " + input + " is not a valid command. Please try again.\n")
-
-print("Thanks for using Ye Olde Printer!")
-print("\n")
+try:
+    while 1:
+        try:
+            c = sys.stdin.read(1)
+            if c == "k":
+                jokemaker()
+        except IOError:
+            pass
+finally:
+    termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
+    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
