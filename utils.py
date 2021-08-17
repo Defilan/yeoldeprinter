@@ -1,39 +1,48 @@
 from random import randint
 import subprocess
 
-# Get the contents out of a .txt file and into a list
+# Get the contents out of a .txt file and return a list
 def get_file_contents(filename):
     our_file = open("resources/" + filename + ".txt", "r")
     content_list = our_file.readlines()
     our_file.close()
     return content_list
 
-# Get the jokes out of a .txt file and into a list
-def getfilecontentslist(filename):
-    ourfile = open("resources/" + filename + ".txt", "r")
-    contentlist = ourfile.readlines()
-    ourfile.close()
-    return contentlist
+# Returns a random item from a given list
+def get_random_item(content_list):
+    return content_list[randint(0, len(content_list) - 1)]
 
+# Accept input and return a joke/fortune/error
+def jokemaker(input):
+    
+    file_contents_list = []
+    requestedContent = ""
+    stringbuild = ""
 
-# Choose a random joke from a given joke list
-def getrandomjokefromlist(jokelist):
-    return jokelist[randint(0, len(jokelist) - 1)]
+    if input == "k":
+        file_contents_list = get_file_contents("jokes")
+        requestedContent = "joke"
+    elif input == "j":
+        file_contents_list = get_file_contents("fortunes")
+        requestedContent = "fortune"
+    elif input == "":
+        input = "\" \""
 
+    output = get_random_item(file_contents_list)
 
-def jokemaker():
-    jokelist = getfilecontentslist("oneliners")
-    joketosend = getrandomjokefromlist(jokelist)
-    stringbuild = "\n", "Time for a funny one-liner!", joketosend, "Thanks for using Ye Olde Printer!"
+    if len(file_contents_list) > 0:
+        stringbuild = "\n", "Time for a" + requestedContent + "!", output, "Thanks for using Ye Olde Printer!"
+    else:
+        stringbuild = "\n", "Sorry, but " + input + " is not a valid command. Please try again."
+
     glue = "\n"
     res = glue.join(stringbuild).encode('utf8')
     sendtoprinter(res)
 
-
-def sendtoprinter(joke):
+def sendtoprinter(output):
     print("Sending job to print queue...")
-    print(joke)
+    print(output)
     lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, close_fds=True)
-    lpr.stdin.write(joke)
+    lpr.stdin.write(output)
     lpr.stdin.flush()
     lpr.stdin.close()

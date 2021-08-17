@@ -17,9 +17,8 @@ fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK)
 try:
     while 1:
         try:
-            c = sys.stdin.read(1)
-            if c == "k":
-                jokemaker()
+            # this will obviously need to be sanitized
+            jokemaker(sys.stdin.read(1))
         except IOError:
             pass
 finally:
