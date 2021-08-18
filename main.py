@@ -4,6 +4,7 @@ import os
 import sys
 import termios
 
+print("Starting Ye Olde Printer Service...")
 fd = sys.stdin.fileno()
 
 oldterm = termios.tcgetattr(fd)
@@ -18,7 +19,9 @@ try:
     while 1:
         try:
             # this will obviously need to be sanitized
-            jokemaker(sys.stdin.read(1))
+            kb = sys.stdin.read(1)
+            if kb == "k" or kb == "j":
+                jokemaker(kb)
         except IOError:
             pass
 finally:
