@@ -3,9 +3,12 @@ import subprocess
 
 
 # Get the contents out of a .txt file and return a list
-def get_file_contents(filename):
+def get_file_contents(filename, isstring):
     our_file = open("resources/" + filename + ".txt", "r")
-    content_list = our_file.readlines()
+    if isstring:
+        content_list = our_file.read()
+    else:
+        content_list = our_file.readlines()
     our_file.close()
     return content_list
 
@@ -22,16 +25,16 @@ def jokemaker(inputparam):
     stringbuild = ""
 
     if inputparam == "k":
-        file_contents_list = get_file_contents("jokes")
+        file_contents_list = get_file_contents("jokes", False)
         requestedcontent = "joke"
     elif inputparam == "j":
-        file_contents_list = get_file_contents("fortunes")
+        file_contents_list = get_file_contents("fortunes", False)
         requestedcontent = "fortune"
 
     output = get_random_item(file_contents_list)
-
+    yeolde = get_file_contents("yeolde", True)
     if len(file_contents_list) > 0:
-        stringbuild = "\n", "Time for a " + requestedcontent + "!", output, "Thanks for using Ye Olde Printer!"
+        stringbuild = yeolde, "\n", "Time for a " + requestedcontent + "!", output, "Thanks for using Ye Olde Printer!"
     else:
         stringbuild = "\n", "Sorry, but " + inputparam + " is not a valid command. Please try again."
 
