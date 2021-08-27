@@ -1,6 +1,8 @@
+
 # Ye Olde Joke Printer
  ℌ𝔢𝔞𝔯 𝔶𝔢, 𝔥𝔢𝔞𝔯 𝔶𝔢. 𝔓𝔯𝔢𝔰𝔰𝔢𝔱𝔥 𝔶𝔢 𝔟𝔲𝔱𝔱𝔬𝔫𝔢 𝔞𝔫𝔡 𝔯𝔢𝔠𝔢𝔦𝔳𝔢𝔱𝔥 𝔱𝔥𝔢𝔢 𝔞 𝔍𝔬𝔨𝔢 𝔬𝔣 𝔶𝔢 𝔣𝔲𝔫𝔫𝔦𝔢𝔰𝔱 𝔭𝔢𝔯𝔰𝔲𝔞𝔰𝔦𝔬𝔫.
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Defilan_yeoldeprinter&metric=alert_status)](https://sonarcloud.io/dashboard?id=Defilan_yeoldeprinter)
 ## Background
 
 ### Hardware
