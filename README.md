@@ -9,7 +9,7 @@
 
 1. Raspberry Pi 4 running Raspbian Linux 
 2. Parallel to USB Cable
-3. Dot matrix printer
+3. Dot matrix printer (OKI Microline 420)
 4. USB Button
 
 ### Software Requirements
